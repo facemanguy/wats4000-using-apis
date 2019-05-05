@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Rhymesaurus from '@/views/Rhymesaurus'
-// TODO: Import new component
+import Spellcheck from '@/views/Spellcheck'
 
 Vue.use(Router)
 
@@ -11,7 +11,12 @@ export default new Router({
       path: '/',
       name: 'Rhymesaurus',
       component: Rhymesaurus
+    },
+    {
+      path: '/Spellcheck',
+      name: 'Spellcheck',
+      component: Spellcheck
     }
-    // TODO: Add new route definition here.
+    
   ]
 })

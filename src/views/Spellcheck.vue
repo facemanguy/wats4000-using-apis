@@ -1,13 +1,17 @@
 <template>
-  <div class="rhymesaurus">
-    <h2>Rhymesaurus: The Rhyming Thesaurus</h2>
+  <div class="Spellcheck">
+      <h2>Spellcheckeroama! </h2>
 
     <p>
-      <router-link to="/Spellcheck">Try The SpellChecker</router-link>
+      <router-link to="/">Try The Rhymesaurus</router-link>
     </p>
 
     <form v-on:submit.prevent="findWords">
-      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button type="submit">Search</button></p>
+      <p>
+        Find words that are spelled like 
+        <input type="text" v-model="misspelling">
+        <button type="submit">Search</button>
+      </p>
     </form>
     
     <ul class="results" v-if="results && results.length > 0">      
@@ -18,13 +22,13 @@
     </ul>
 
     <div class="no-results" v-else-if="results && results.length === 0">
-      <h2>No Words Found</h2>
+      <h2>No Similar Words Found</h2>
       <p>Please adjust your search to find more words.</p>
     </div>
     
     <ul class="errors" v-if="errors && errors.length > 0">      
       <li v-for="(error,index) of errors" :key="index">
-        {{error.message}}
+          {{error.message}}
       </li>
     </ul>
 
@@ -36,22 +40,19 @@ import axios from 'axios';
 import { error } from 'util';
 
 export default {
-  name: 'Rhymesaurus',
+  name: 'Spellcheck',
   data () {
     return {
       results: null,
       errors: [],
-      phrase: '',
-      rhyme: ''
+      misspelling: ''
     }
   },
   methods: {
     findWords: function(){
       axios.get('https://api.datamuse.com/words',{
       params: {
-        ml: this.phrase,
-        rel_rhy: this.rhyme,
-
+        sp: this.misspelling
       }
     })
     .then(response =>{
